@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Login - ProcureSense</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            🌾 ProcureSense
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+        </div>
+    </nav>
+    <section class="login-section">
+        <div class="login-box">
+            <h1>👨‍🌾 Farmer Login</h1>
+            <p>Login to manage your procurement</p>
+            <label>Mobile Number</label>
+            <input type="text" placeholder="Enter mobile number">
+            <label>Password</label>
+            <input type="password" placeholder="Enter password">
+            <button onclick="loginFarmer()">
+                Login
+            </button>
+            <p class="register-text">
+                New Farmer? <a href="farmer-register.html">Register Here</a>
+            </p>
+        </div>
+    </section>
+    <script>
+    function loginFarmer() {
+    let mobile = document.querySelector('input[type="text"]').value.trim();
+    let password = document.querySelector('input[type="password"]').value;
+    if (mobile === "" || password === "") {
+        alert("Please enter mobile number and password");
+        return;
+    }
+
+    // Get registered farmers
+    let farmers = JSON.parse(localStorage.getItem("farmers")) || [];
+
+    // Check mobile number and password
+    let farmer = farmers.find(function(f) {
+        return f.mobile === mobile && f.password === password;
+    });
+
+    if (farmer) {
+
+        // Save currently logged-in farmer
+        localStorage.setItem("loggedInFarmer", JSON.stringify(farmer));
+
+        alert("Login successful! Welcome " + farmer.name);
+
+        window.location.href = "farmer-dashboard.html";
+
+    } else {
+
+        alert("Invalid mobile number or password!");
+
+    }
+}
+</script>
+</body>
+</html>

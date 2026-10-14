@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Registration - ProcureSense</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+    <div class="logo">
+        🌾 ProcureSense
+    </div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+    </div>
+</nav>
+
+<section class="login-section">
+    <div class="login-box">
+
+        <h1>👨‍🌾 Farmer Registration</h1>
+        <p>Create your ProcureSense farmer account</p>
+
+        <label>Farmer Name</label>
+        <input type="text" id="name" placeholder="Enter farmer name">
+
+        <label>Mobile Number</label>
+        <input type="text" id="mobile" placeholder="Enter mobile number">
+
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Create password">
+
+        <button onclick="registerFarmer()">
+            Register
+        </button>
+
+        <p class="register-text">
+            Already Registered?
+            <a href="farmer.html">Login Here</a>
+        </p>
+
+    </div>
+</section>
+
+<script>
+
+function registerFarmer() {
+
+    let name = document.getElementById("name").value.trim();
+    let mobile = document.getElementById("mobile").value.trim();
+    let password = document.getElementById("password").value;
+
+    if (name === "" || mobile === "" || password === "") {
+        alert("Please fill all details");
+        return;
+    }
+
+    if (mobile.length !== 10 || isNaN(mobile)) {
+        alert("Enter a valid 10-digit mobile number");
+        return;
+    }
+
+    // Get existing farmers
+    let farmers = JSON.parse(localStorage.getItem("farmers")) || [];
+
+    // Check mobile number already registered
+    let existingFarmer = farmers.find(function(farmer) {
+        return farmer.mobile === mobile;
+    });
+
+    if (existingFarmer) {
+        alert("This mobile number is already registered!");
+        return;
+    }
+
+    // Generate unique Farmer ID
+    let farmerId;
+
+    do {
+        farmerId = "FAR" + Math.floor(100000 + Math.random() * 900000);
+    } while (farmers.some(farmer => farmer.farmerId === farmerId));
+
+    // Create new farmer
+    let farmer = {
+        farmerId: farmerId,
+        name: name,
+        mobile: mobile,
+        password: password
+    };
+
+    // Add farmer to array
+    farmers.push(farmer);
+
+    // Save all farmers
+    localStorage.setItem("farmers", JSON.stringify(farmers));
+
+    alert(
+        "Registration successful!\n\n" +
+        "Farmer ID: " + farmerId
+    );
+
+    window.location.href = "farmer.html";
+}
+
+</script>
+
+</body>
+</html>

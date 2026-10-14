@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login - ProcureSense</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<nav>
+
+    <div class="logo">
+        🌾 ProcureSense
+    </div>
+
+    <div class="nav-links">
+
+        <a href="index.html">
+            Home
+        </a>
+
+    </div>
+
+</nav>
+
+
+<section class="login-section">
+
+
+    <h1>🏢 Admin Login</h1>
+
+    <p>Login to manage farmer procurement</p>
+
+
+    <!-- Username -->
+
+    <input
+        type="text"
+        id="adminUsername"
+        placeholder="Admin Username"
+    >
+
+
+    <!-- Password -->
+
+    <input
+        type="password"
+        id="adminPassword"
+        placeholder="Admin Password"
+    >
+
+
+    <!-- Login Button -->
+
+    <button onclick="adminLogin()">
+        Login
+    </button>
+
+
+</section>
+
+
+
+<script>
+
+
+function adminLogin() {
+
+
+    let username =
+        document.getElementById("adminUsername").value.trim();
+
+
+    let password =
+        document.getElementById("adminPassword").value;
+
+
+    if (username === "" || password === "") {
+
+        alert("Please enter username and password");
+
+        return;
+
+    }
+
+
+    /* ADMIN LOGIN */
+
+    if (
+        username === "ReddyLakshmi" &&
+        password === "ReddyLakshmi"
+    ) {
+
+
+        /* SAVE ADMIN LOGIN */
+
+        localStorage.setItem(
+            "adminLoggedIn",
+            "true"
+        );
+
+
+        alert(
+            "Admin login successful!"
+        );
+
+
+        window.location.href =
+            "admin-dashboard.html";
+
+
+    } else {
+
+
+        alert(
+            "Invalid admin username or password!"
+        );
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>
